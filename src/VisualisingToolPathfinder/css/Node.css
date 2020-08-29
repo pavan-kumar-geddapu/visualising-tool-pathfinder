@@ -1,0 +1,179 @@
+.node {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #dee2e6;
+  display: inline-block;
+  pointer-events: auto;
+}
+
+.node-start {
+  background-image: url("./../assets/walk.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: reveal;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.node-finish {
+  background-image: url("./../assets/target.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: reveal;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes reveal {
+  0% {
+    transform: scale(1);
+  }
+  20%{
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.node-wall {
+  border: 0px !important;
+  background-color: #081b2e;
+  animation-name: wallAnimation;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes wallAnimation {
+  0% {
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.node-visited {
+  animation-name: visitedAnimation;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes visitedAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: yellow;
+    border-radius: 50px;
+  }
+  2% {
+    transform: scale(1);
+    background-color: yellow;
+    border: 0px;
+    border-radius: 0px;
+  }
+  2% {
+    transform: scale(0.3);
+    background-color: #004d66;
+    border-radius: 20px;
+  }
+  50% {
+    transform: scale(1);
+    background-color: #0099cc;
+    border-radius: 0px;
+  }
+  100% {
+    background-color: #00cccc;
+    border: 0.5px solid #dee2e6;
+  }
+}
+
+.node-path {
+  animation-name: shortestPath;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes shortestPath {
+  0% {
+    transform: scale(0.6);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: yellow;
+  }
+}
+
+/* Node styling on the Key/Legend on the bottom of the desktop screen */
+
+.node-key {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  pointer-events: auto;
+}
+
+.node-start-key {
+  background-image: url("./../assets/walk.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.node-finish-key {
+  background-image: url("./../assets/target.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.node-wall-key {
+  background-color: #081b2e;
+}
+
+.node-unvisited-key {
+  border: 1px solid #dee2e6;
+}
+
+.node-visited-key {
+  background-color: #00cccc;
+}
+
+.node-path-key {
+  background-color: yellow;
+}
