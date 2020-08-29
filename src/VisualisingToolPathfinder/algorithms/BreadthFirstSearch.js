@@ -1,6 +1,6 @@
 import { updateNeighbourNodes, getUnvisitedNeighbours } from "./Helper";
 
-export function BFS(startNode, finishNode, grid) {
+export function BreadthFirstSearch(startNode, finishNode, grid) {
   let visNodes = [];
   let unVisNodes = [startNode];
   startNode.distance = 0;

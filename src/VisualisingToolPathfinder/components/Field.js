@@ -14,7 +14,7 @@ import { FaGithub } from 'react-icons/fa';
 import "../css/Field.css";
 import  Node from "./Node";
 import Key from "./Key";
-import { BFS } from "../algorithms/BFS";
+import { BreadthFirstSearch } from "../algorithms/BreadthFirstSearch";
 
 const widthBreakPoint = 1000;
 
@@ -45,8 +45,8 @@ class Field extends Component {
     this.initaliseScreen();
   };
 
-  // handling BFS algorithm
-  handleBFS = () => {
+  // handling BreadthFirstSearch algorithm
+  handleBreadthFirstSearch = () => {
     this.setState(
       {
         isRunning: true,
@@ -56,7 +56,7 @@ class Field extends Component {
         const { grid, startNodeCoords, finishNodeCoords } = this.state;
         const startNode = grid[startNodeCoords.row][startNodeCoords.col];
         const finishNode = grid[finishNodeCoords.row][finishNodeCoords.col];
-        const visitedNodes = BFS(startNode, finishNode, grid);
+        const visitedNodes = BreadthFirstSearch(startNode, finishNode, grid);
         this.animateSearch(visitedNodes, finishNode);
       }
     );
@@ -297,8 +297,8 @@ class Field extends Component {
   start = () => {
     let chosenAlgorithm = this.state.algorithmTitle;
 
-    if (chosenAlgorithm === "BFS") {
-      this.handleBFS();
+    if (chosenAlgorithm === "BreadthFirstSearch") {
+      this.handleBreadthFirstSearch();
     }
   };
 
@@ -373,9 +373,9 @@ class Field extends Component {
               <NavDropdown className = "mr-sm-2" title={this.state.algorithmTitle || "Choose Algo"} 
                 id="collasible-nav-dropdown">
                 <NavDropdown.Item 
-                onClick = {() => this.chooseAlgorithm("BFS")}
-                active = {this.state.algorithmTitle === "BFS"}
-                href="#">BFS</NavDropdown.Item>
+                onClick = {() => this.chooseAlgorithm("BreadthFirstSearch")}
+                active = {this.state.algorithmTitle === "BreadthFirstSearch"}
+                href="#">Breadth First Search</NavDropdown.Item>
                 <NavDropdown.Divider />
               </NavDropdown>
             </Nav>
@@ -450,9 +450,9 @@ class Field extends Component {
               <NavDropdown className = "mr-2" title={this.state.algorithmTitle || "Choose Algo"} 
                 id="collasible-nav-dropdown">
                 <NavDropdown.Item 
-                onClick = {() => this.chooseAlgorithm("BFS")}
-                active = {this.state.algorithmTitle === "BFS"}
-                href="#">BFS</NavDropdown.Item>
+                onClick = {() => this.chooseAlgorithm("BreadthFirstSearch")}
+                active = {this.state.algorithmTitle === "BreadthFirstSearch"}
+                href="#">BreadthFirstSearch</NavDropdown.Item>
                 <NavDropdown.Divider />
               </NavDropdown>
               {/* <Nav.Link href="#"><FaGithub size="30"/></Nav.Link> */}
