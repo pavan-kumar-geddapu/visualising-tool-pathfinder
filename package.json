@@ -2,7 +2,7 @@
   "name": "visualising-tool-pathfinder",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/pavan-kumar-geddapu/visualising-tool-pathfinder",
+  "homepage": "https://pavan-kumar-geddapu.github.io/visualising-tool-pathfinder/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
