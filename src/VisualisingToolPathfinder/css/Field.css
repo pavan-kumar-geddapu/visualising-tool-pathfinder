@@ -2,8 +2,61 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1%;
   pointer-events: none;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2vh;
+}
+
+.gridInfo {
+  width: 80%;
+}
+
+.algoInfo {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 20%;
+}
+
+.customCard {
+  width: 90%;
+  height: 100px;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 10px;
+  box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12)
+  ;
+}
+@media screen and (max-width: 999px) {
+  .algoInfo {
+    width: 100%;
+    flex-direction: row;
+  }
+  .customCard {
+    margin: 2%;
+    width: 46%;
+  }
+}
+
+.outputTextStyle {
+  font-weight: 500;
+  margin-top: 10px;
+  font-size: 20px;
+}
+.outputCountStyle {
+  font-weight: 500;
+  font-size: 40px;
 }
 
 .noBorder {

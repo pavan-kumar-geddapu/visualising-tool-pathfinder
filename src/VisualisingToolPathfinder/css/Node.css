@@ -101,9 +101,9 @@
   2% {
     transform: scale(0.3);
     background-color: #004d66;
-    border-radius: 20px;
+    border-radius: 10px;
   }
-  50% {
+  40% {
     transform: scale(1);
     background-color: #0099cc;
     border-radius: 0px;

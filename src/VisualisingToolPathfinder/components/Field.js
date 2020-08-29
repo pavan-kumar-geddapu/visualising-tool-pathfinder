@@ -84,15 +84,14 @@ class Field extends Component {
 
   // animating the searching process
   animateSearch = (visitedNodes, finishNode) => {
-    if(finishNode !== null) {
-      this.setState({
-        totalVisNodes: visitedNodes.length,
-        shortestDistance: finishNode.distance
-      })
-    }
     for(let i=0; i<=visitedNodes.length; i++){
       if(i === visitedNodes.length){
         setTimeout(() => {
+          if(finishNode !== null) {
+            this.setState({
+              totalVisNodes: visitedNodes.length
+            });
+          }
           this.animatePath(finishNode);
         }, 30 * i);
         return;
@@ -125,6 +124,11 @@ class Field extends Component {
     for(let i=0; i<=shortestPath.length; i++){
       if(i === shortestPath.length){
         setTimeout(() => {
+          if(finishNode !== null) {
+            this.setState({
+              shortestDistance: finishNode.distance
+            });
+          }
           this.setState({canReset: true});
         }, 50 * i);
         return;
@@ -140,6 +144,7 @@ class Field extends Component {
 
   // initalise grid according to avaialble screen
   initaliseScreen = () => {
+    let curScreenWidth = window.innerWidth;
     const columns = this.grid.current.childNodes; // get iterable list of columns
     for (const column of columns) {
       // this returns HTML DOM elements with className = "column"
@@ -152,8 +157,15 @@ class Field extends Component {
     let rowSize, colSize, width, height;
     width = window.innerWidth;
     height = window.innerHeight;
-    rowSize = Math.floor((height * 0.80) / 30);
-    colSize = Math.floor((width * 0.97) / 30);
+    if(curScreenWidth >= widthBreakPoint){
+      rowSize = Math.floor((height * 0.80) / 30);
+      colSize = Math.floor((width * 0.78) / 30);
+    }
+    else{
+      rowSize = Math.floor((height * 0.73) / 30);
+      colSize = Math.floor((width * 0.98) / 30);
+    }
+    
 
     if(rowSize < 1) rowSize = 1;
     if(colSize < 1) colSize = 1;
@@ -352,14 +364,17 @@ class Field extends Component {
     this.setState({
       isRunning: false,
       visitedNodes: 0,
-      totalVisNodes: 0
+      totalVisNodes: 0,
+      shortestDistance: 0
     });
   };
 
   render() {
     const { grid } = this.state;
     let curScreenWidth = window.innerWidth;
-    let gridShowVar = 
+
+    // storing common HTML code in variables
+    let gridScreen = 
       <div className = "grid" ref = {this.grid}>
       {grid.map((row, rowIdx) => {
         return (
@@ -394,26 +409,30 @@ class Field extends Component {
       })}
     </div> ;
 
+    let algoDropdown = 
+      <Nav>
+        <NavDropdown className = "mr-2 pull-right" title={this.state.algorithmTitle || "Choose Algo"} 
+          id="collasible-nav-dropdown">
+          <NavDropdown.Item 
+            onClick = {() => this.chooseAlgorithm("BreadthFirstSearch")}
+            active = {this.state.algorithmTitle === "BreadthFirstSearch"}
+            href="#">Breadth First Search</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item 
+            onClick = {() => this.chooseAlgorithm("DepthFirstSearch")}
+            active = {this.state.algorithmTitle === "DepthFirstSearch"}
+            href="#">Depth First Search</NavDropdown.Item>
+        </NavDropdown>
+      </Nav> ;
+    
+    // if screen is a laptop
     if(curScreenWidth >= widthBreakPoint){
       return (
         <>
           <Navbar className="navbar" collapseOnSelect expand="lg" variant="dark" bg="dark" sticky="top" >
             <Navbar.Brand href="#">PathFinder</Navbar.Brand>
   
-            <Nav className = "col-auto">
-              <NavDropdown className = "mr-sm-2" title={this.state.algorithmTitle || "Choose Algo"} 
-                id="collasible-nav-dropdown">
-                <NavDropdown.Item 
-                  onClick = {() => this.chooseAlgorithm("BreadthFirstSearch")}
-                  active = {this.state.algorithmTitle === "BreadthFirstSearch"}
-                  href="#">Breadth First Search</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item 
-                  onClick = {() => this.chooseAlgorithm("DepthFirstSearch")}
-                  active = {this.state.algorithmTitle === "DepthFirstSearch"}
-                  href="#">Depth First Search</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
+            {algoDropdown}
   
             <Nav className = "mr-auto">
               <Button className = "mr-sm-2" variant="success"
@@ -444,46 +463,29 @@ class Field extends Component {
             </Nav>
           </Navbar>
   
-          <div>
-            <div className = "grid" ref = {this.grid}>
-              {grid.map((row, rowIdx) => {
-                return (
-                  <div key={rowIdx}>
-                    {row.map((node, nodeIdx) => {
-                      const {
-                        row,
-                        col,
-                        isStart,
-                        isFinish,
-                        isWall,
-                        isVisited,
-                      } = node;
-                      const { colSize } = this.state;
-                      return (
-                        <Node
-                          key = {rowIdx * colSize + nodeIdx}
-                          row = {row}
-                          col = {col}
-                          isStart = {isStart}
-                          isFinish = {isFinish}
-                          isWall = {isWall}
-                          isVisited = {isVisited}
-                          onMouseDown={this.handleMouseDown}
-                          onMouseUp={this.handleMouseUp}
-                          onMouseEnter={this.handleMouseEnter}
-                        ></Node>
-                      );
-                    })}
-                  </div>                
-                );
-              })}
-            </div>    
+          <div className = "mainContainer">
+          <div className = "gridInfo">
+            {gridScreen}
           </div>
+          <div className = "algoInfo">
+            <div className = "customCard" style={{color: "#008080"}}>
+              <div className="outputTextStyle">Visited</div>
+              <div className="outputCountStyle">{this.state.totalVisNodes}</div>
+            </div>
+            <div className = "customCard" style={{color: "#cccc00"}}>
+              <div className="outputTextStyle">Shortest Path</div>
+              <div className="outputCountStyle">{this.state.shortestDistance}</div>
+            </div>
+          </div>
+          </div>
+
           <Key />
   
         </>
       );
     }
+    
+    // if screen is a mobile
     else{
       return (
         <>
@@ -513,21 +515,25 @@ class Field extends Component {
                 <FaSyncAlt />
               </Button>
             </Nav>
-            <Nav >
-              <NavDropdown className = "mr-2" title={this.state.algorithmTitle || "Choose Algo"} 
-                id="collasible-nav-dropdown">
-                <NavDropdown.Item 
-                onClick = {() => this.chooseAlgorithm("BreadthFirstSearch")}
-                active = {this.state.algorithmTitle === "BreadthFirstSearch"}
-                href="#">BreadthFirstSearch</NavDropdown.Item>
-                <NavDropdown.Divider />
-              </NavDropdown>
-              {/* <Nav.Link href="#"><FaGithub size="30"/></Nav.Link> */}
-            </Nav>
+            
+            {algoDropdown}
             
           </Navbar>
   
-          {gridShowVar}       
+          <div style={{marginTop: "2vh"}}>
+            {gridScreen}
+          </div>  
+
+          <div className = "algoInfo">
+            <div className = "customCard" style={{color: "#008080"}}>
+              <div className="outputTextStyle">Visited</div>
+              <div className="outputCountStyle">{this.state.totalVisNodes}</div>
+            </div>
+            <div className = "customCard" style={{color: "#cccc00"}}>
+              <div className="outputTextStyle">Shortest Path</div>
+              <div className="outputCountStyle">{this.state.shortestDistance}</div>
+            </div>
+          </div>     
   
         </>
       );
