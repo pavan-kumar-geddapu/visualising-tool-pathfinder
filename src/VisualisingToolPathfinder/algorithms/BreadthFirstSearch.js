@@ -1,4 +1,4 @@
-import { updateNeighbourNodes, getUnvisitedNeighbours } from "./Helper";
+import { connectNeighbourNodes, getUnvisitedNeighbours } from "./Helper";
 
 export function BreadthFirstSearch(startNode, finishNode, grid) {
   let visNodes = [];
@@ -8,13 +8,13 @@ export function BreadthFirstSearch(startNode, finishNode, grid) {
   while(unVisNodes.length > 0){
     let curNode = unVisNodes.shift();
 
-    if(curNode.isVisited || curNode.isWall) continue;
+    if(curNode.isVisited) continue;
     curNode.isVisited = true;
     visNodes.push(curNode);
 
     if(curNode === finishNode) break;
     let neighbours = getUnvisitedNeighbours(curNode, grid);
-    updateNeighbourNodes(curNode, grid);
+    connectNeighbourNodes(curNode, neighbours);
     unVisNodes = unVisNodes.concat(neighbours);
   }
 

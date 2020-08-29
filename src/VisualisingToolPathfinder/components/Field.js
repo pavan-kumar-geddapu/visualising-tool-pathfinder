@@ -15,6 +15,7 @@ import "../css/Field.css";
 import  Node from "./Node";
 import Key from "./Key";
 import { BreadthFirstSearch } from "../algorithms/BreadthFirstSearch";
+import { DepthFirstSearch } from "../algorithms/DepthFirstSearch";
 
 const widthBreakPoint = 1000;
 
@@ -33,7 +34,9 @@ class Field extends Component {
       screenWidth: null,
       isRunning: false,
       canReset: true,
-      algorithmTitle: ""
+      algorithmTitle: "",
+      totalVisNodes: 0,
+      shortestDistance: 0
     };
     this.grid = React.createRef();
   }
@@ -62,8 +65,31 @@ class Field extends Component {
     );
   };
 
+  // handling DepthFirstSearch algorithm
+  handleDepthFirstSearch = () => {
+    this.setState(
+      {
+        isRunning: true,
+        canReset: false
+      },
+      () => {
+        const { grid, startNodeCoords, finishNodeCoords } = this.state;
+        const startNode = grid[startNodeCoords.row][startNodeCoords.col];
+        const finishNode = grid[finishNodeCoords.row][finishNodeCoords.col];
+        const visitedNodes = DepthFirstSearch(startNode, finishNode, grid);
+        this.animateSearch(visitedNodes, finishNode);
+      }
+    );
+  };
+
   // animating the searching process
   animateSearch = (visitedNodes, finishNode) => {
+    if(finishNode !== null) {
+      this.setState({
+        totalVisNodes: visitedNodes.length,
+        shortestDistance: finishNode.distance
+      })
+    }
     for(let i=0; i<=visitedNodes.length; i++){
       if(i === visitedNodes.length){
         setTimeout(() => {
@@ -300,6 +326,9 @@ class Field extends Component {
     if (chosenAlgorithm === "BreadthFirstSearch") {
       this.handleBreadthFirstSearch();
     }
+    else if (chosenAlgorithm === "DepthFirstSearch") {
+      this.handleDepthFirstSearch();
+    }
   };
 
   // choose an algorithem
@@ -321,7 +350,9 @@ class Field extends Component {
 
     this.initaliseScreen();
     this.setState({
-      isRunning: false
+      isRunning: false,
+      visitedNodes: 0,
+      totalVisNodes: 0
     });
   };
 
@@ -373,10 +404,14 @@ class Field extends Component {
               <NavDropdown className = "mr-sm-2" title={this.state.algorithmTitle || "Choose Algo"} 
                 id="collasible-nav-dropdown">
                 <NavDropdown.Item 
-                onClick = {() => this.chooseAlgorithm("BreadthFirstSearch")}
-                active = {this.state.algorithmTitle === "BreadthFirstSearch"}
-                href="#">Breadth First Search</NavDropdown.Item>
+                  onClick = {() => this.chooseAlgorithm("BreadthFirstSearch")}
+                  active = {this.state.algorithmTitle === "BreadthFirstSearch"}
+                  href="#">Breadth First Search</NavDropdown.Item>
                 <NavDropdown.Divider />
+                <NavDropdown.Item 
+                  onClick = {() => this.chooseAlgorithm("DepthFirstSearch")}
+                  active = {this.state.algorithmTitle === "DepthFirstSearch"}
+                  href="#">Depth First Search</NavDropdown.Item>
               </NavDropdown>
             </Nav>
   
@@ -408,11 +443,43 @@ class Field extends Component {
               <Nav.Link href="#"><FaGithub size="30"/></Nav.Link>
             </Nav>
           </Navbar>
-
-          <Key /> 
   
-          {gridShowVar}     
- 
+          <div>
+            <div className = "grid" ref = {this.grid}>
+              {grid.map((row, rowIdx) => {
+                return (
+                  <div key={rowIdx}>
+                    {row.map((node, nodeIdx) => {
+                      const {
+                        row,
+                        col,
+                        isStart,
+                        isFinish,
+                        isWall,
+                        isVisited,
+                      } = node;
+                      const { colSize } = this.state;
+                      return (
+                        <Node
+                          key = {rowIdx * colSize + nodeIdx}
+                          row = {row}
+                          col = {col}
+                          isStart = {isStart}
+                          isFinish = {isFinish}
+                          isWall = {isWall}
+                          isVisited = {isVisited}
+                          onMouseDown={this.handleMouseDown}
+                          onMouseUp={this.handleMouseUp}
+                          onMouseEnter={this.handleMouseEnter}
+                        ></Node>
+                      );
+                    })}
+                  </div>                
+                );
+              })}
+            </div>    
+          </div>
+          <Key />
   
         </>
       );
