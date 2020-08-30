@@ -537,8 +537,6 @@ class Field extends Component {
           <Navbar className="navbar customNavbar" collapseOnSelect expand="lg" variant="dark" bg="dark" sticky="top" >
             <Navbar.Brand href="#">PathFinder</Navbar.Brand>
   
-            {algoDropdown}
-  
             <Nav className = "mr-auto">
               <Button className = "mr-sm-2" variant="success"
                 onClick = {this.start} disabled={this.state.isRunning || this.state.algorithmTitle === ""}
@@ -562,7 +560,11 @@ class Field extends Component {
               >
                 <FaSyncAlt /> Reset
               </Button>
+
+              {algoDropdown}
+              
             </Nav>
+
             <Nav>
               <Nav.Link href="https://github.com/pavan-kumar-geddapu/visualising-tool-pathfinder"><FaGithub size="30"/></Nav.Link>
             </Nav>
@@ -595,8 +597,10 @@ class Field extends Component {
       return (
         <>
           <Navbar className="navbar customNavbar" collapseOnSelect variant="dark" bg="dark" sticky="top" >
-  
-            <Nav className = "mr-auto">
+
+            {algoDropdown}
+
+            <Nav className="ml-auto">
               <Button className = "mr-2" variant="success"
                 onClick = {this.start} disabled={this.state.isRunning || this.state.algorithmTitle === ""}
               >
@@ -620,8 +624,6 @@ class Field extends Component {
                 <FaSyncAlt />
               </Button>
             </Nav>
-            
-            {algoDropdown}
             
           </Navbar>
   
