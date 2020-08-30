@@ -158,12 +158,12 @@ class Field extends Component {
     width = window.innerWidth;
     height = window.innerHeight;
     if(curScreenWidth >= widthBreakPoint){
-      rowSize = Math.floor((height * 0.80) / 30);
-      colSize = Math.floor((width * 0.78) / 30);
+      rowSize = Math.floor((height * 0.75) / 30);
+      colSize = Math.floor((width * 0.70) / 30);
     }
     else{
-      rowSize = Math.floor((height * 0.73) / 30);
-      colSize = Math.floor((width * 0.98) / 30);
+      rowSize = Math.floor((height * 0.70) / 30);
+      colSize = Math.floor((width * 0.90) / 30);
     }
     
 
@@ -429,7 +429,7 @@ class Field extends Component {
     if(curScreenWidth >= widthBreakPoint){
       return (
         <>
-          <Navbar className="navbar" collapseOnSelect expand="lg" variant="dark" bg="dark" sticky="top" >
+          <Navbar className="navbar customNavbar" collapseOnSelect expand="lg" variant="dark" bg="dark" sticky="top" >
             <Navbar.Brand href="#">PathFinder</Navbar.Brand>
   
             {algoDropdown}
@@ -489,7 +489,7 @@ class Field extends Component {
     else{
       return (
         <>
-          <Navbar className="navbar" collapseOnSelect variant="dark" bg="dark" sticky="top" >
+          <Navbar className="navbar customNavbar" collapseOnSelect variant="dark" bg="dark" sticky="top" >
   
             <Nav className = "mr-auto">
               <Button className = "mr-2" variant="success"

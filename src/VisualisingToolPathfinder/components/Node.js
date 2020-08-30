@@ -17,14 +17,14 @@ export default class Node extends Component {
     } = this.props;
 
     // Figure out the type of the node
-    let classNames = `node`;
+    let classNames = `node node-shadow`;
     classNames += isStart ? ` node-start` : ``;
     classNames += isFinish ? ` node-finish` : ``;
     classNames += isWall ? ` node-wall` : ``;
 
     // Add specific class if the node is part of the Key/Legend
     if (isKey) {
-      return <div className={`node-key ${keyClass}`}></div>;
+      return <div className={`node node-shadow ${keyClass}`}></div>;
     }
 
     return (
