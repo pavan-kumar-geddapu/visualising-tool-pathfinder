@@ -459,7 +459,7 @@ class Field extends Component {
               </Button>
             </Nav>
             <Nav>
-              <Nav.Link href="#"><FaGithub size="30"/></Nav.Link>
+              <Nav.Link href="https://github.com/pavan-kumar-geddapu/visualising-tool-pathfinder"><FaGithub size="30"/></Nav.Link>
             </Nav>
           </Navbar>
   
