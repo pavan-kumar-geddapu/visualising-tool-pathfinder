@@ -68,6 +68,9 @@
   animation-timing-function: ease-out;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
+  /* margin: 0px 0px;
+  width: 32px;
+  height: 32px; */
 }
 
 @keyframes wallAnimation {

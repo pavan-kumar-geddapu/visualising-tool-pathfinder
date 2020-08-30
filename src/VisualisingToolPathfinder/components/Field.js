@@ -19,7 +19,8 @@ import { DepthFirstSearch } from "../algorithms/DepthFirstSearch";
 import { DijkstrasShortestPath } from "../algorithms/DijkstrasShortestPath";
 import { AStarSearchAlgorithm } from "../algorithms/AStarSearchAlgorithm";
 
-const widthBreakPoint = 1000;
+const widthBreakPoint = 1000,
+      nodeSize = 32;
 
 class Field extends Component {
 
@@ -194,12 +195,12 @@ class Field extends Component {
     width = window.innerWidth;
     height = window.innerHeight;
     if(curScreenWidth >= widthBreakPoint){
-      rowSize = Math.floor((height * 0.75) / 30);
-      colSize = Math.floor((width * 0.70) / 30);
+      rowSize = Math.floor((height * 0.78) / nodeSize);
+      colSize = Math.floor((width * 0.78) / nodeSize);
     }
     else{
-      rowSize = Math.floor((height * 0.70) / 30);
-      colSize = Math.floor((width * 0.90) / 30);
+      rowSize = Math.floor((height * 0.75) / nodeSize);
+      colSize = Math.floor((width * 0.90) / nodeSize);
     }
     
 
