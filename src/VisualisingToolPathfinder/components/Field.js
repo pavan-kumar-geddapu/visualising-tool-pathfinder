@@ -17,6 +17,7 @@ import Key from "./Key";
 import { BreadthFirstSearch } from "../algorithms/BreadthFirstSearch";
 import { DepthFirstSearch } from "../algorithms/DepthFirstSearch";
 import { DijkstrasShortestPath } from "../algorithms/DijkstrasShortestPath";
+import { AStarSearchAlgorithm } from "../algorithms/AStarSearchAlgorithm";
 
 const widthBreakPoint = 1000;
 
@@ -95,6 +96,23 @@ class Field extends Component {
         const startNode = grid[startNodeCoords.row][startNodeCoords.col];
         const finishNode = grid[finishNodeCoords.row][finishNodeCoords.col];
         const visitedNodes = DijkstrasShortestPath(startNode, finishNode, grid);
+        this.animateSearch(visitedNodes, finishNode);
+      }
+    );
+  };
+
+  // handling AStarSearchAlgorithm algorithm
+  handleAStarSearchAlgorithm = () => {
+    this.setState(
+      {
+        isRunning: true,
+        canReset: false
+      },
+      () => {
+        const { grid, startNodeCoords, finishNodeCoords } = this.state;
+        const startNode = grid[startNodeCoords.row][startNodeCoords.col];
+        const finishNode = grid[finishNodeCoords.row][finishNodeCoords.col];
+        const visitedNodes = AStarSearchAlgorithm(startNode, finishNode, grid);
         this.animateSearch(visitedNodes, finishNode);
       }
     );
@@ -361,6 +379,9 @@ class Field extends Component {
     else if(chosenAlgorithm === "DijkstrasShortestPath") {
       this.handleDijkstrasShortestPath();
     }
+    else if(chosenAlgorithm === "AStarSearchAlgorithm") {
+      this.handleAStarSearchAlgorithm();
+    }
   };
 
   // choose an algorithem
@@ -442,6 +463,7 @@ class Field extends Component {
       <Nav>
         <NavDropdown className = "mr-2 pull-right" title={this.state.algorithmTitle || "Choose Algo"} 
           id="collasible-nav-dropdown">
+
           <NavDropdown.Item 
             onClick = {() => this.chooseAlgorithm("BreadthFirstSearch")}
             active = {this.state.algorithmTitle === "BreadthFirstSearch"}
@@ -451,13 +473,20 @@ class Field extends Component {
           <NavDropdown.Item 
             onClick = {() => this.chooseAlgorithm("DepthFirstSearch")}
             active = {this.state.algorithmTitle === "DepthFirstSearch"}
-            href="#">Depth First Search</NavDropdown.Item>
-          
+            href="#">Depth First Search</NavDropdown.Item>          
           <NavDropdown.Divider />
+
           <NavDropdown.Item 
             onClick = {() => this.chooseAlgorithm("DijkstrasShortestPath")}
             active = {this.state.algorithmTitle === "DijkstrasShortestPath"}
             href="#">Dijkstra's Shortest Path</NavDropdown.Item>
+          <NavDropdown.Divider />
+          
+          <NavDropdown.Item 
+            onClick = {() => this.chooseAlgorithm("AStarSearchAlgorithm")}
+            active = {this.state.algorithmTitle === "AStarSearchAlgorithm"}
+            href="#">A* Search Algorithm</NavDropdown.Item>
+
         </NavDropdown>        
       </Nav> ;
     

@@ -32,3 +32,8 @@ export function findMinDistanceNode(nodeArray) {
   });
   return minNode;
 }
+
+// find Manhattan distance between two nodes
+export function findManhattanDistance(nodeA, nodeB) {
+  return Math.abs(nodeA.row - nodeB.row) + Math.abs(nodeA.col - nodeB.col);
+}
