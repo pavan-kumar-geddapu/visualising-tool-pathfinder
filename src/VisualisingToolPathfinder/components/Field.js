@@ -316,7 +316,6 @@ class Field extends Component {
 
     let curNode = grid[row][col];
     if(isStartMoving){
-      console.log(this.state.startNodeCoords);
       curNode.isStart = true;
       grid[prevNode.row][prevNode.col].isStart = false;
       this.setState({ prevNode: {row, col}});
