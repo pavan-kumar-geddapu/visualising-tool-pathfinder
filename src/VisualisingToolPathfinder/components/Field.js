@@ -298,13 +298,14 @@ class Field extends Component {
     if(!mouseDown || isRunning) return;
 
     let curNode = grid[row][col];
+
     if(isStartMoving){
-      curNode.isStart = true;
       curNode.isWall = false;
+      curNode.isStart = true;
       this.setState({ 
-        startNodeCoords: {row, col},
+        isStartMoving: false,
         prevNode: {row, col},
-        isStartMoving: false
+        startNodeCoords: {row, col}
       });
     }
     else if(isFinishMoving){
@@ -316,9 +317,10 @@ class Field extends Component {
         isFinishMoving: false
       });
     }
-    else{
+    if(!curNode.isStart && !curNode.isFinish){
       curNode.isWall = !curNode.isWall;
     }
+
     this.setState({ mouseDown: false});
   }
   handleMouseEnter = (row, col) => {
@@ -330,13 +332,14 @@ class Field extends Component {
       isStartMoving,
       isFinishMoving
     } = this.state;
+
     if(!mouseDown || isRunning) return ;
 
     let curNode = grid[row][col];
     if(isStartMoving){
       curNode.isStart = true;
       grid[prevNode.row][prevNode.col].isStart = false;
-      this.setState({ prevNode: {row, col}});
+      this.setState({ prevNode: {row, col} });
     }
     else if(isFinishMoving){
       curNode.isFinish = true;
@@ -346,8 +349,8 @@ class Field extends Component {
     else{
       curNode.isWall = !curNode.isWall;
     }
-    
-    this.setState({ mouseDown: true});
+
+    this.setState({mouseDown: true});
   }
   handleMouseDown = (row, col) => {
     const { grid, isRunning } = this.state;
@@ -362,8 +365,8 @@ class Field extends Component {
       curNode.isFinish = false;
       this.setState({ isFinishMoving: true, prevNode: {row, col}});
     }
-    this.setState({mouseDown: true});
 
+    this.setState({mouseDown: true});
   }
 
   // start implementing algorithem
