@@ -374,16 +374,16 @@ class Field extends Component {
   start = () => {
     let chosenAlgorithm = this.state.algorithmTitle;
 
-    if (chosenAlgorithm === "BreadthFirstSearch") {
+    if (chosenAlgorithm === "Breadth First Search" || chosenAlgorithm === "BFS") {
       this.handleBreadthFirstSearch();
     }
-    else if (chosenAlgorithm === "DepthFirstSearch") {
+    else if (chosenAlgorithm === "Depth First Search" || chosenAlgorithm === "DFS") {
       this.handleDepthFirstSearch();
     }
-    else if(chosenAlgorithm === "DijkstrasShortestPath") {
+    else if(chosenAlgorithm === "Dijkstra's Algorithm" || chosenAlgorithm === "Dijkstra's") {
       this.handleDijkstrasShortestPath();
     }
-    else if(chosenAlgorithm === "AStarSearchAlgorithm") {
+    else if(chosenAlgorithm === "A* Search Algorithm" || chosenAlgorithm === "A*") {
       this.handleAStarSearchAlgorithm();
     }
   };
@@ -463,36 +463,72 @@ class Field extends Component {
       })}
     </div> ;
 
-    let algoDropdown = 
+    let algoDropdown ;
+    // if screen is laptop
+    if(curScreenWidth >= widthBreakPoint){
+      algoDropdown = 
       <Nav>
-        <NavDropdown className = "mr-2 pull-right" title={this.state.algorithmTitle || "Choose Algo"} 
+        <NavDropdown className = "mr-2" title={this.state.algorithmTitle || "Choose Algo"} 
           id="collasible-nav-dropdown">
 
           <NavDropdown.Item 
-            onClick = {() => this.chooseAlgorithm("BreadthFirstSearch")}
-            active = {this.state.algorithmTitle === "BreadthFirstSearch"}
+            onClick = {() => this.chooseAlgorithm("Breadth First Search")}
+            active = {this.state.algorithmTitle === "Breadth First Search"}
             href="#">Breadth First Search</NavDropdown.Item>
           <NavDropdown.Divider />
 
           <NavDropdown.Item 
-            onClick = {() => this.chooseAlgorithm("DepthFirstSearch")}
-            active = {this.state.algorithmTitle === "DepthFirstSearch"}
+            onClick = {() => this.chooseAlgorithm("Depth First Search")}
+            active = {this.state.algorithmTitle === "Depth First Search"}
             href="#">Depth First Search</NavDropdown.Item>          
           <NavDropdown.Divider />
 
           <NavDropdown.Item 
-            onClick = {() => this.chooseAlgorithm("DijkstrasShortestPath")}
-            active = {this.state.algorithmTitle === "DijkstrasShortestPath"}
-            href="#">Dijkstra's Shortest Path</NavDropdown.Item>
+            onClick = {() => this.chooseAlgorithm("Dijkstra's Algorithm")}
+            active = {this.state.algorithmTitle === "Dijkstra's Algorithm"}
+            href="#">Dijkstra's Algorithm</NavDropdown.Item>
           <NavDropdown.Divider />
           
           <NavDropdown.Item 
-            onClick = {() => this.chooseAlgorithm("AStarSearchAlgorithm")}
-            active = {this.state.algorithmTitle === "AStarSearchAlgorithm"}
+            onClick = {() => this.chooseAlgorithm("A* Search Algorithm")}
+            active = {this.state.algorithmTitle === "A* Search Algorithm"}
             href="#">A* Search Algorithm</NavDropdown.Item>
 
         </NavDropdown>        
       </Nav> ;
+    }
+    else {
+      algoDropdown = 
+      <Nav>
+        <NavDropdown className = "mr-2" title={this.state.algorithmTitle || "Choose Algo"} 
+          id="collasible-nav-dropdown">
+
+          <NavDropdown.Item 
+            onClick = {() => this.chooseAlgorithm("BFS")}
+            active = {this.state.algorithmTitle === "BFS"}
+            href="#">BFS</NavDropdown.Item>
+          <NavDropdown.Divider />
+
+          <NavDropdown.Item 
+            onClick = {() => this.chooseAlgorithm("DFS")}
+            active = {this.state.algorithmTitle === "DFS"}
+            href="#">DFS</NavDropdown.Item>          
+          <NavDropdown.Divider />
+
+          <NavDropdown.Item 
+            onClick = {() => this.chooseAlgorithm("Dijkstra's")}
+            active = {this.state.algorithmTitle === "Dijkstra's"}
+            href="#">Dijkstra's</NavDropdown.Item>
+          <NavDropdown.Divider />
+          
+          <NavDropdown.Item 
+            onClick = {() => this.chooseAlgorithm("A*")}
+            active = {this.state.algorithmTitle === "A*"}
+            href="#">A*</NavDropdown.Item>
+
+        </NavDropdown>        
+      </Nav> ;
+    }
     
     // if screen is a laptop
     if(curScreenWidth >= widthBreakPoint){
