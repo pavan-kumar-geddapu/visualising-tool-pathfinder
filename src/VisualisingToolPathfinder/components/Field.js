@@ -16,6 +16,7 @@ import  Node from "./Node";
 import Key from "./Key";
 import { BreadthFirstSearch } from "../algorithms/BreadthFirstSearch";
 import { DepthFirstSearch } from "../algorithms/DepthFirstSearch";
+import { DijkstrasShortestPath } from "../algorithms/DijkstrasShortestPath";
 
 const widthBreakPoint = 1000;
 
@@ -77,6 +78,23 @@ class Field extends Component {
         const startNode = grid[startNodeCoords.row][startNodeCoords.col];
         const finishNode = grid[finishNodeCoords.row][finishNodeCoords.col];
         const visitedNodes = DepthFirstSearch(startNode, finishNode, grid);
+        this.animateSearch(visitedNodes, finishNode);
+      }
+    );
+  };
+
+  // handling DijkstrasShortestPath algorithm
+  handleDijkstrasShortestPath = () => {
+    this.setState(
+      {
+        isRunning: true,
+        canReset: false
+      },
+      () => {
+        const { grid, startNodeCoords, finishNodeCoords } = this.state;
+        const startNode = grid[startNodeCoords.row][startNodeCoords.col];
+        const finishNode = grid[finishNodeCoords.row][finishNodeCoords.col];
+        const visitedNodes = DijkstrasShortestPath(startNode, finishNode, grid);
         this.animateSearch(visitedNodes, finishNode);
       }
     );
@@ -341,6 +359,9 @@ class Field extends Component {
     else if (chosenAlgorithm === "DepthFirstSearch") {
       this.handleDepthFirstSearch();
     }
+    else if(chosenAlgorithm === "DijkstrasShortestPath") {
+      this.handleDijkstrasShortestPath();
+    }
   };
 
   // choose an algorithem
@@ -418,11 +439,18 @@ class Field extends Component {
             active = {this.state.algorithmTitle === "BreadthFirstSearch"}
             href="#">Breadth First Search</NavDropdown.Item>
           <NavDropdown.Divider />
+
           <NavDropdown.Item 
             onClick = {() => this.chooseAlgorithm("DepthFirstSearch")}
             active = {this.state.algorithmTitle === "DepthFirstSearch"}
             href="#">Depth First Search</NavDropdown.Item>
-        </NavDropdown>
+          
+          <NavDropdown.Divider />
+          <NavDropdown.Item 
+            onClick = {() => this.chooseAlgorithm("DijkstrasShortestPath")}
+            active = {this.state.algorithmTitle === "DijkstrasShortestPath"}
+            href="#">Dijkstra's Shortest Path</NavDropdown.Item>
+        </NavDropdown>        
       </Nav> ;
     
     // if screen is a laptop

@@ -20,3 +20,15 @@ export function connectNeighbourNodes(node, neighbours) {
   }
   );
 }
+
+// find min distance node in given array 
+export function findMinDistanceNode(nodeArray) {
+  let minVal = Infinity , minNode = null;
+  nodeArray.forEach((node) => {
+    if(node.distance < minVal) {
+      minVal = node.distance;
+      minNode = node;
+    }
+  });
+  return minNode;
+}
