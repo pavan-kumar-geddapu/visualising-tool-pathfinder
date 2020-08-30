@@ -381,7 +381,16 @@ class Field extends Component {
       }
     }
 
-    this.initaliseScreen();
+    let { grid } = this.state;
+    grid.forEach((column) => {
+      column.forEach((node) => {
+        node.isVisited = false;
+        node.distance = Infinity;
+        node.prevNode = null;
+      });
+    });
+
+    // this.initaliseScreen();
     this.setState({
       isRunning: false,
       visitedNodes: 0,
