@@ -104,7 +104,6 @@
   2% {
     transform: scale(1);
     background-color: yellow;
-    border: 0px;
     border-radius: 0px;
   }
   2% {
@@ -119,7 +118,6 @@
   }
   100% {
     background-color: #00cccc;
-    border: 0.5px solid #dee2e6;
   }
 }
 
